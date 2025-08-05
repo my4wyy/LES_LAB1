@@ -1,1 +1,1 @@
-# LES_LAB1
+# LABORATÓRIO 01 - Características de repositórios populares
