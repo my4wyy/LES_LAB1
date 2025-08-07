@@ -1,0 +1,5 @@
+#token 
+secrets/github_token.txt
+
+#config 
+.venv/
