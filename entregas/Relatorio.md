@@ -51,7 +51,7 @@ Essas linguagens têm bases de usuários enormes e aplicações muito amplas: we
 **Hipótese:**  
 > "O percentual médio de issues fechadas será superior a 70%, indicando boa manutenção."
 
-Projetos populares costumam ter processos simples e objetivos para triagem: templates, rótulos, política de duplicados e vínculo entre PR e issue. A comunidade também ajuda a reproduzir problemas e propor correções. Com esse fluxo, fechar issues vira rotinao e sustenta percentuais de fechamento mais altos ao longo do tempo.
+Projetos populares costumam ter processos simples e objetivos para triagem: templates, rótulos, política de duplicados e vínculo entre PR e issue. A comunidade também ajuda a reproduzir problemas e propor correções. Com esse fluxo, fechar issues vira rotina e sustenta percentuais de fechamento mais altos ao longo do tempo.
 
 ---
 
