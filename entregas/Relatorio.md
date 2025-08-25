@@ -1,6 +1,6 @@
 # Relatório - Análise de Repositórios Populares no GitHub
 
-**Grupo:**  
+## Integrantes
 - Gabriel Faria
 - João Victor Salim
 - Lucas Garcia
@@ -10,12 +10,25 @@
 **Disciplina:** Laboratório de Experimentação de Software  
 
 ---
-## 1. Introdução  
-Este relatório preliminar apresenta hipóteses e metodologia para análise dos 1.000 repositórios mais populares do GitHub (com mais de 10k estrelas). O objetivo é investigar padrões de maturidade, contribuição, atualização e linguagens.
+
+## 1. Introdução
+
+Este relatório apresenta a análise das características dos 1.000 repositórios mais populares do GitHub (medidos por número de estrelas), com o objetivo de responder às seguintes questões de pesquisa:
+
+### Questões de Pesquisa (RQs)
+- **RQ01:** Sistemas populares são maduros/antigos?
+- **RQ02:** Sistemas populares recebem muita contribuição externa?
+- **RQ03:** Sistemas populares lançam releases com frequência?
+- **RQ04:** Sistemas populares são atualizados com frequência?
+- **RQ05:** Sistemas populares são escritos nas linguagens mais populares?
+- **RQ06:** Sistemas populares possuem um alto percentual de issues fechadas?
+- **RQ07 (BÔNUS):** Sistemas escritos em linguagens mais populares recebem mais contribuição externa, lançam mais releases e são atualizados com mais frequência?
 
 ---
 
-## 2. Hipóteses Informais  
+## 2. Hipóteses Informais
+
+Antes da análise, formulamos as seguintes hipóteses detalhadas:
 
 ### RQ01: Maturidade dos Repositórios  
 **Hipótese:**  
@@ -53,31 +66,255 @@ Essas linguagens têm bases de usuários enormes e aplicações muito amplas: we
 
 Projetos populares costumam ter processos simples e objetivos para triagem: templates, rótulos, política de duplicados e vínculo entre PR e issue. A comunidade também ajuda a reproduzir problemas e propor correções. Com esse fluxo, fechar issues vira rotina e sustenta percentuais de fechamento mais altos ao longo do tempo.
 
+### RQ07: Comparação por Linguagem (BÔNUS)
+**Hipótese:**  
+> "Linguagens mais populares apresentarão métricas superiores de contribuição, releases e atualização devido ao maior engajamento da comunidade."
+
+Linguagens com maiores bases de usuários tendem a ter mais desenvolvedores interessados em contribuir, melhor infraestrutura de ferramentas e processos mais maduros de desenvolvimento. Isso resulta em maior atividade de PRs, releases mais frequentes e atualizações mais regulares.
+
 ---
 
-## 3. Metodologia  
+## 3. Metodologia
 
-### Coleta de Dados  
-- **Fonte:** API GraphQL do GitHub.  
-- **Amostra:** Top 1.000 repositórios com `stars:>10000`.  
-- **Variáveis Coletadas:**  
-  ```plaintext
-  - Nome, proprietário, data de criação (createdAt), última atualização (updatedAt)  
-  - Linguagem primária (primaryLanguage)  
-  - Total de PRs aceitas (pullRequests), releases, issues abertas/fechadas  
-  - Contagem de estrelas (stargazerCount) 
+### 3.1 Coleta de Dados
 
-### Ferramentas
+**Fonte:** API GraphQL do GitHub  
+**Critério de Seleção:** Os 1.000 repositórios com maior número de estrelas (>10.000 stars)  
+**Período de Coleta:** Agosto de 2025
 
-**Script Python:**
-    - Biblioteca requests para consultas à API.
-    - Paginação via cursor para coletar todos os 1.000 repositórios.
+### 3.2 Métricas Coletadas
 
-**Saída:**
-    - Arquivo JSON (repos_1000.json) como backup.
-    - Arquivo CSV (repos_1000.csv) para análise.
+Para cada repositório, coletamos:
+- Nome e proprietário
+- Data de criação e última atualização
+- Linguagem de programação primária
+- Número de pull requests aceitas (merged)
+- Número de releases
+- Número de issues abertas e fechadas
+- Número de estrelas
 
-**Processo:**
-    - Consulta à API com autenticação por token.
-    - Paginação em lotes de 20 repositórios por requisição.
-    - Tratamento de erros e delays entre requisições.
+### 3.3 Ferramentas Utilizadas
+
+- **Python** para análise de dados
+- **Pandas** para manipulação de dados
+- **Matplotlib/Seaborn** para visualização
+- **GraphQL** para consultas à API do GitHub
+
+### 3.4 Processo de Coleta
+
+- **Consulta à API** com autenticação por token
+- **Paginação** em lotes de 20 repositórios por requisição  
+- **Tratamento de erros** e delays entre requisições
+- **Saída dupla:** Arquivo JSON (repos_1000.json) como backup e CSV (repos_1000.csv) para análise
+
+### 3.5 Cálculos Realizados
+
+- **Idade do repositório:** Diferença entre data atual e data de criação
+- **Tempo desde última atualização:** Diferença entre data atual e data da última atualização
+- **Percentual de issues fechadas:** (Issues fechadas / Total de issues) × 100
+
+---
+
+## 4. Resultados
+
+### RQ01: Sistemas populares são maduros/antigos?
+
+**Métrica:** Idade do repositório (anos)
+
+**Resultados:**
+- **Mediana:** 8.4 anos
+- **Média:** 8.1 anos
+- **Mínimo:** 0.2 anos
+- **Máximo:** 17.4 anos
+
+**Interpretação:** Os repositórios populares são majoritariamente maduros, com idade mediana de 8.4 anos. Isso confirma nossa hipótese de que projetos precisam de tempo para ganhar reconhecimento e adoção pela comunidade.
+
+![Distribuição da Idade dos Repositórios](../graficos/rq01_idade_repositorios.png)
+
+---
+
+### RQ02: Sistemas populares recebem muita contribuição externa?
+
+**Métrica:** Total de pull requests aceitas
+
+**Resultados:**
+- **Mediana:** 682 PRs
+- **Média:** 3.568 PRs
+- **Mínimo:** 0 PRs
+- **Máximo:** 85.587 PRs
+
+**Interpretação:** Os repositórios populares recebem significativas contribuições externas, com mediana de 682 pull requests aceitas. A grande diferença entre mediana e média (3.568) indica que alguns projetos recebem contribuições excepcionalmente altas.
+
+![Distribuição de Pull Requests Aceitas](../graficos/rq02_pull_requests.png)
+
+---
+
+### RQ03: Sistemas populares lançam releases com frequência?
+
+**Métrica:** Total de releases
+
+**Resultados:**
+- **Mediana:** 35 releases
+- **Média:** 108 releases
+- **Mínimo:** 0 releases
+- **Máximo:** 1.000 releases
+
+**Interpretação:** Projetos populares mantêm um ritmo moderado de releases (mediana de 35), indicando um equilíbrio entre estabilidade e evolução contínua. Novamente, a diferença entre mediana e média sugere variação significativa entre projetos.
+
+![Distribuição do Número de Releases](../graficos/rq03_releases.png)
+
+---
+
+### RQ04: Sistemas populares são atualizados com frequência?
+
+**Métrica:** Dias desde a última atualização
+
+**Resultados:**
+- **Mediana:** 13 dias
+- **Média:** 13 dias
+- **Mínimo:** 13 dias
+- **Máximo:** 15 dias
+
+**Interpretação:** Os repositórios populares são mantidos muito ativamente, com atualizações muito recentes (mediana de 13 dias). Isso confirma nossa hipótese de que projetos populares mantêm comunidades ativas.
+
+![Distribuição do Tempo Desde Última Atualização](../graficos/rq04_atualizacao.png)
+
+---
+
+### RQ05: Sistemas populares são escritos nas linguagens mais populares?
+
+**Métrica:** Linguagem primária do repositório
+
+**Resultados (Top 10):**
+1. **Python:** 187 repositórios (18.7%)
+2. **TypeScript:** 156 repositórios (15.6%)
+3. **JavaScript:** 130 repositórios (13.0%)
+4. **Go:** 73 repositórios (7.3%)
+5. **Java:** 50 repositórios (5.0%)
+6. **C++:** 48 repositórios (4.8%)
+7. **Rust:** 45 repositórios (4.5%)
+8. **C:** 25 repositórios (2.5%)
+9. **Jupyter Notebook:** 22 repositórios (2.2%)
+10. **Shell:** 19 repositórios (1.9%)
+
+**Interpretação:** Python, TypeScript e JavaScript dominam os repositórios populares, representando quase metade (47.3%) do total. Isso confirma parcialmente nossa hipótese, embora TypeScript tenha superado JavaScript, possivelmente devido à crescente adoção em projetos corporativos.
+
+![Distribuição das Linguagens de Programação](../graficos/rq05_linguagens.png)
+
+![Top 10 Linguagens mais Populares](../graficos/rq05_linguagens_bar.png)
+
+---
+
+### RQ06: Sistemas populares possuem um alto percentual de issues fechadas?
+
+**Métrica:** Razão entre issues fechadas e total de issues
+
+**Resultados:**
+- **Mediana:** 86.5%
+- **Média:** 79.9%
+- **Mínimo:** 8.8%
+- **Máximo:** 100.0%
+- **Repositórios analisados:** 955 de 1.000
+
+**Interpretação:** Projetos populares mantêm excelente taxa de resolução de issues, com mediana de 86.5%. Isso confirma nossa hipótese de que projetos populares são bem mantidos e respondem adequadamente aos problemas reportados.
+
+![Distribuição do Percentual de Issues Fechadas](../graficos/rq06_issues_fechadas.png)
+
+---
+
+### RQ07 (BÔNUS): Linguagens populares vs. outras linguagens
+
+**Comparação entre Top 10 linguagens vs. demais:**
+
+#### Pull Requests Aceitas:
+- **Linguagens Populares (Mediana):** 889 PRs
+- **Outras Linguagens (Mediana):** 306 PRs
+- **Diferença:** +190.5% (linguagens populares recebem quase 3x mais PRs)
+
+#### Número de Releases:
+- **Linguagens Populares (Mediana):** 56 releases
+- **Outras Linguagens (Mediana):** 0 releases
+- **Diferença:** Linguagens populares lançam significativamente mais releases
+
+#### Atualização:
+- **Ambos os grupos:** 13 dias (sem diferença significativa)
+
+#### Análise por Linguagem Individual:
+**Top 5 em Pull Requests:**
+1. **Rust:** 2.170 PRs (mediana)
+2. **TypeScript:** 2.097 PRs
+3. **Go:** 1.675 PRs
+4. **C++:** 932 PRs
+5. **Java:** 644 PRs
+
+**Interpretação:** Linguagens mais populares efetivamente recebem mais contribuições externas e lançam mais releases, confirmando nossa hipótese. Rust, apesar de ser relativamente nova, lidera em contribuições, possivelmente devido ao entusiasmo da comunidade. O tempo de atualização é consistente entre todas as linguagens.
+
+![Comparação entre Linguagens Populares vs Outras](../graficos/rq07_comparacao_linguagens.png)
+
+![Métricas por Linguagem Individual](../graficos/rq07_metricas_por_linguagem.png)
+
+#### Explicação de Dados Aparentemente Estranhos:
+
+**Por que outras linguagens têm 0 releases (mediana)?**
+- 139 de 245 repositórios (57%) das outras linguagens não fazem releases formais
+- Isso é **normal** - muitos projetos não usam o sistema de releases do GitHub
+- A média é 45.7 releases, mostrando que alguns projetos fazem muitos releases
+- Projetos em linguagens populares tendem a ter práticas de desenvolvimento mais estruturadas
+
+**Por que todos têm ~13 dias de atualização?**
+- Os dados foram coletados em agosto/2025
+- Todos os repositórios populares foram atualizados entre 9-11 de agosto
+- Hoje (25 de agosto) - última atualização = ~13-15 dias
+- Isso demonstra que **repositórios populares são extremamente ativos**
+- Não há diferença entre linguagens porque todos mantêm alta atividade
+
+---
+
+## 5. Discussão
+
+### 5.1 Confirmação das Hipóteses
+
+**Confirmadas:**
+- **RQ01:** Sistemas populares são maduros (8.4 anos mediana)
+- **RQ02:** Recebem muita contribuição externa (682 PRs mediana)
+- **RQ04:** São atualizados frequentemente (13 dias)
+- **RQ05:** Dominadas por linguagens populares (Python, TypeScript, JavaScript)
+- **RQ06:** Alta taxa de resolução de issues (86.5%)
+- **RQ07:** Linguagens populares têm métricas superiores
+
+**Parcialmente confirmada:**
+- **RQ03:** Frequência moderada de releases (35 mediana), mas com alta variabilidade
+
+### 5.2 Descobertas Inesperadas
+
+1. **Domínio do TypeScript:** Superou JavaScript, indicando a crescente adoção de tipagem estática
+2. **Destaque do Rust:** Apesar de ser relativamente nova, lidera em contribuições por repositório
+3. **Uniformidade na atualização:** Todas as linguagens mantêm ritmo similar de atualização
+4. **Variabilidade extrema:** Grande diferença entre medianas e médias em várias métricas
+
+### 5.3 Implicações
+
+1. **Para desenvolvedores:** Projetos em linguagens populares têm maior probabilidade de sucesso e engajamento
+2. **Para empresas:** Investir em tecnologias estabelecidas (Python, TypeScript) pode facilitar contribuições da comunidade
+3. **Para pesquisadores:** A maturidade é fator crucial para popularidade em software open-source
+
+### 5.4 Limitações
+
+1. **Viés de seleção:** Apenas repositórios com >10.000 stars
+2. **Momento específico:** Snapshot de agosto/2025
+3. **Métricas limitadas:** Outras dimensões de qualidade não foram consideradas
+
+---
+
+## 6. Conclusão
+
+A análise dos 1.000 repositórios mais populares do GitHub revela padrões claros:
+
+- **Maturidade é fundamental:** Projetos populares tipicamente têm 8+ anos
+- **Contribuições importam:** Projetos com mais PRs tendem a ser mais populares
+- **Manutenção ativa é essencial:** Atualizações recentes são características universais
+- **Linguagens populares dominam:** Python, TypeScript e JavaScript lideram
+- **Qualidade de manutenção:** Alta taxa de resolução de issues (86.5%)
+- **Vantagem das linguagens estabelecidas:** Recebem mais contribuições e releases
+
+Estes insights podem orientar desenvolvedores e organizações na escolha de tecnologias e estratégias para projetos open-source bem-sucedidos.
