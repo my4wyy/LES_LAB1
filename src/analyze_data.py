@@ -227,11 +227,11 @@ def gerar_graficos(df):
 def mostrar_estatisticas(df):
     """Mostra as estatísticas principais de cada RQ"""
     print("\n" + "="*60)
-    print("📊 ESTATÍSTICAS DOS REPOSITÓRIOS POPULARES")
+    print("ESTATÍSTICAS DOS REPOSITÓRIOS POPULARES")
     print("="*60)
     
     # RQ01: Idade
-    print("\n🕐 RQ01: Maturidade dos Repositórios")
+    print("\nRQ01: Maturidade dos Repositórios")
     print("-" * 40)
     idade_stats = df['idade_anos'].describe()
     print(f"Mediana: {df['idade_anos'].median():.1f} anos")
@@ -240,7 +240,7 @@ def mostrar_estatisticas(df):
     print(f"Máximo: {df['idade_anos'].max():.1f} anos")
     
     # RQ02: Pull Requests
-    print("\n🔄 RQ02: Contribuição Externa (Pull Requests)")
+    print("\nRQ02: Contribuição Externa (Pull Requests)")
     print("-" * 40)
     print(f"Mediana: {df['mergedPRs'].median():.0f} PRs")
     print(f"Média: {df['mergedPRs'].mean():.0f} PRs")
@@ -248,7 +248,7 @@ def mostrar_estatisticas(df):
     print(f"Máximo: {df['mergedPRs'].max():.0f} PRs")
     
     # RQ03: Releases
-    print("\n🚀 RQ03: Frequência de Releases")
+    print("\nRQ03: Frequência de Releases")
     print("-" * 40)
     print(f"Mediana: {df['releases'].median():.0f} releases")
     print(f"Média: {df['releases'].mean():.0f} releases")
@@ -256,7 +256,7 @@ def mostrar_estatisticas(df):
     print(f"Máximo: {df['releases'].max():.0f} releases")
     
     # RQ04: Atualização
-    print("\n📅 RQ04: Frequência de Atualização")
+    print("\nRQ04: Frequência de Atualização")
     print("-" * 40)
     print(f"Mediana: {df['dias_desde_atualizacao'].median():.0f} dias")
     print(f"Média: {df['dias_desde_atualizacao'].mean():.0f} dias")
@@ -264,7 +264,7 @@ def mostrar_estatisticas(df):
     print(f"Máximo: {df['dias_desde_atualizacao'].max():.0f} dias")
     
     # RQ05: Linguagens (Top 10)
-    print("\n💻 RQ05: Linguagens Mais Populares (Top 10)")
+    print("\nRQ05: Linguagens Mais Populares (Top 10)")
     print("-" * 40)
     linguagens = df['primaryLanguage'].value_counts().head(10)
     for i, (lang, count) in enumerate(linguagens.items(), 1):
@@ -272,7 +272,7 @@ def mostrar_estatisticas(df):
     
     # RQ06: Issues fechadas
     df_com_issues = df[df['total_issues'] > 0]
-    print("\n🐛 RQ06: Percentual de Issues Fechadas")
+    print("\nRQ06: Percentual de Issues Fechadas")
     print("-" * 40)
     print(f"Mediana: {df_com_issues['percentual_issues_fechadas'].median():.1f}%")
     print(f"Média: {df_com_issues['percentual_issues_fechadas'].mean():.1f}%")
@@ -281,7 +281,7 @@ def mostrar_estatisticas(df):
     print(f"Repositórios analisados: {len(df_com_issues)} de {len(df)}")
     
     # RQ07: Comparação por linguagem
-    print("\n🔄 RQ07: Linguagens Populares vs Outras")
+    print("\nRQ07: Linguagens Populares vs Outras")
     print("-" * 40)
     top_linguagens = df['primaryLanguage'].value_counts().head(10).index.tolist()
     df_populares = df[df['primaryLanguage'].isin(top_linguagens)]
@@ -313,11 +313,11 @@ def main():
     mostrar_estatisticas(df)
     
     # Gera gráficos
-    print("🎨 Gerando gráficos...")
+    print("Gerando gráficos...")
     gerar_graficos(df)
-    print(f"✅ Análise completa! {len(df)} repositórios analisados.")
-    print("📊 Gráficos salvos em 'graficos/'")
-    print("📈 Estatísticas exibidas acima.")
+    print(f"Análise completa! {len(df)} repositórios analisados.")
+    print("Gráficos salvos em 'graficos/'")
+    print("Estatísticas exibidas acima.")
 
 if __name__ == "__main__":
     main()
