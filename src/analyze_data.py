@@ -130,53 +130,56 @@ def gerar_graficos(df):
     categorias = ['Linguagens\nPopulares', 'Outras\nLinguagens']
     
     # Pull Requests
-    prs_dados = [df_populares['mergedPRs'].median(), df_outras['mergedPRs'].median()]
+    prs_dados = [df_populares['mergedPRs'].mean(), df_outras['mergedPRs'].mean()]
     bars1 = axes[0,0].bar(categorias, prs_dados, color=['#2E86AB', '#A23B72'], alpha=0.8)
-    axes[0,0].set_title('Pull Requests Aceitas (Mediana)')
+    axes[0,0].set_title('Pull Requests Aceitas (Média)')
     axes[0,0].set_ylabel('Número de PRs')
     axes[0,0].grid(True, alpha=0.3)
     for bar, valor in zip(bars1, prs_dados):
         axes[0,0].text(bar.get_x() + bar.get_width()/2, bar.get_height() + 20,
                       f'{valor:.0f}', ha='center', va='bottom', fontweight='bold')
     
-    # Releases
-    rel_dados = [df_populares['releases'].median(), df_outras['releases'].median()]
-    bars2 = axes[0,1].bar(categorias, rel_dados, color=['#F18F01', '#C73E1D'], alpha=0.8)
-    axes[0,1].set_title('Número de Releases (Mediana)')
+    # Releases - usando apenas média
+    rel_dados_media = [df_populares['releases'].mean(), df_outras['releases'].mean()]
+    
+    bars2 = axes[0,1].bar(categorias, rel_dados_media, color=['#F18F01', '#C73E1D'], alpha=0.8)
+    axes[0,1].set_title('Número de Releases (Média)')
     axes[0,1].set_ylabel('Número de Releases')
     axes[0,1].grid(True, alpha=0.3)
-    for bar, valor in zip(bars2, rel_dados):
-        axes[0,1].text(bar.get_x() + bar.get_width()/2, bar.get_height() + 1,
-                      f'{valor:.0f}', ha='center', va='bottom', fontweight='bold')
+    for bar, media in zip(bars2, rel_dados_media):
+        axes[0,1].text(bar.get_x() + bar.get_width()/2, bar.get_height() + 2,
+                      f'{media:.1f}', 
+                      ha='center', va='bottom', fontweight='bold', fontsize=12)
     
     # Atualização
-    upd_dados = [df_populares['dias_desde_atualizacao'].median(), df_outras['dias_desde_atualizacao'].median()]
+    upd_dados = [df_populares['dias_desde_atualizacao'].mean(), df_outras['dias_desde_atualizacao'].mean()]
     bars3 = axes[1,0].bar(categorias, upd_dados, color=['#3C6E71', '#70A288'], alpha=0.8)
-    axes[1,0].set_title('Dias desde Última Atualização (Mediana)')
+    axes[1,0].set_title('Dias desde Última Atualização (Média)')
     axes[1,0].set_ylabel('Dias')
     axes[1,0].grid(True, alpha=0.3)
     for bar, valor in zip(bars3, upd_dados):
         axes[1,0].text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.1,
                       f'{valor:.0f}', ha='center', va='bottom', fontweight='bold')
     
-    # Diferenças percentuais
+    # Diferenças percentuais - usando média para releases
     metricas_nomes = ['PRs', 'Releases', 'Atualização']
     diferencas = [
         ((prs_dados[0] - prs_dados[1]) / prs_dados[1] * 100) if prs_dados[1] > 0 else 0,
-        100 if rel_dados[1] == 0 else ((rel_dados[0] - rel_dados[1]) / rel_dados[1] * 100),
+        ((rel_dados_media[0] - rel_dados_media[1]) / rel_dados_media[1] * 100) if rel_dados_media[1] > 0 else 0,
         ((upd_dados[0] - upd_dados[1]) / upd_dados[1] * 100) if upd_dados[1] > 0 else 0
     ]
     
     colors = ['green' if d > 0 else 'red' if d < 0 else 'gray' for d in diferencas]
     bars4 = axes[1,1].bar(metricas_nomes, diferencas, color=colors, alpha=0.8)
-    axes[1,1].set_title('Vantagem das Linguagens Populares (%)')
+    axes[1,1].set_title('Vantagem das Linguagens Populares (% - Média)')
     axes[1,1].set_ylabel('Diferença Percentual (%)')
     axes[1,1].axhline(y=0, color='black', linestyle='-', alpha=0.5)
     axes[1,1].grid(True, alpha=0.3)
     for bar, valor in zip(bars4, diferencas):
+        texto = f'{valor:+.1f}%'
         axes[1,1].text(bar.get_x() + bar.get_width()/2, 
                       bar.get_height() + (5 if valor >= 0 else -15),
-                      f'{valor:+.1f}%', ha='center', va='bottom' if valor >= 0 else 'top', 
+                      texto, ha='center', va='bottom' if valor >= 0 else 'top', 
                       fontweight='bold')
     
     plt.tight_layout()

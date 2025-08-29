@@ -170,12 +170,12 @@ Para cada repositório, coletamos:
 **Métrica:** Dias desde a última atualização
 
 **Resultados:**
-- **Mediana:** 13 dias
-- **Média:** 13 dias
-- **Mínimo:** 13 dias
-- **Máximo:** 15 dias
+- **Mediana:** 17 dias
+- **Média:** 17 dias
+- **Mínimo:** 17 dias
+- **Máximo:** 19 dias
 
-**Interpretação:** Os repositórios populares são mantidos muito ativamente, com atualizações muito recentes (mediana de 13 dias). Isso confirma nossa hipótese de que projetos populares mantêm comunidades ativas.
+**Interpretação:** Os repositórios populares são mantidos muito ativamente, com atualizações muito recentes (mediana de 17 dias). Isso confirma nossa hipótese de que projetos populares mantêm comunidades ativas e recebem atualizações constantes.
 
 ![Distribuição do Tempo Desde Última Atualização](../graficos/rq04_atualizacao.png)
 
@@ -214,7 +214,6 @@ Para cada repositório, coletamos:
 - **Média:** 79.9%
 - **Mínimo:** 8.8%
 - **Máximo:** 100.0%
-- **Repositórios analisados:** 955 de 1.000
 
 **Interpretação:** Projetos populares mantêm excelente taxa de resolução de issues, com mediana de 86.5%. Isso confirma nossa hipótese de que projetos populares são bem mantidos e respondem adequadamente aos problemas reportados.
 
@@ -226,47 +225,39 @@ Para cada repositório, coletamos:
 
 **Comparação entre Top 10 linguagens vs. demais:**
 
+O gráfico abaixo apresenta a comparação entre sistemas escritos em linguagens populares e outros sistemas, utilizando médias das principais métricas:
+- Pull Requests Aceitas (Média)
+- Número de Releases (Média)
+- Dias desde Última Atualização (Média)
+- Vantagem percentual das linguagens populares em relação às outras
+
 #### Pull Requests Aceitas:
-- **Linguagens Populares (Mediana):** 889 PRs
-- **Outras Linguagens (Mediana):** 306 PRs
-- **Diferença:** +190.5% (linguagens populares recebem quase 3x mais PRs)
+- **Linguagens Populares (Média):** 3.853 PRs
+- **Outras Linguagens (Média):** 2.689 PRs
+- **Diferença:** +43.3% (linguagens populares recebem mais PRs em média)
 
 #### Número de Releases:
-- **Linguagens Populares (Mediana):** 56 releases
-- **Outras Linguagens (Mediana):** 0 releases
-- **Diferença:** Linguagens populares lançam significativamente mais releases
+- **Linguagens Populares (Média):** 128.3 releases
+- **Outras Linguagens (Média):** 45.7 releases
+- **Diferença:** +180.4% (linguagens populares lançam mais releases em média)
 
 #### Atualização:
-- **Ambos os grupos:** 13 dias (sem diferença significativa)
+- **Ambos os grupos (Média):** 17 dias (sem diferença significativa)
+
+![RQ07: Comparação entre Linguagens Populares vs Outras](../graficos/rq07_comparacao_linguagens.png)
+
+O gráfico evidencia que sistemas populares têm médias superiores de PRs aceitas e releases, enquanto o tempo médio desde a última atualização é praticamente igual entre os grupos.
 
 #### Análise por Linguagem Individual:
-**Top 5 em Pull Requests:**
-1. **Rust:** 2.170 PRs (mediana)
-2. **TypeScript:** 2.097 PRs
-3. **Go:** 1.675 PRs
-4. **C++:** 932 PRs
-5. **Java:** 644 PRs
 
-**Interpretação:** Linguagens mais populares efetivamente recebem mais contribuições externas e lançam mais releases, confirmando nossa hipótese. Rust, apesar de ser relativamente nova, lidera em contribuições, possivelmente devido ao entusiasmo da comunidade. O tempo de atualização é consistente entre todas as linguagens.
-
-![Comparação entre Linguagens Populares vs Outras](../graficos/rq07_comparacao_linguagens.png)
+Os gráficos a seguir detalham as médias e medianas de PRs aceitas, releases e dias desde a última atualização para cada linguagem principal:
+- Rust e TypeScript lideram em PRs aceitas
+- TypeScript e Go lideram em número de releases
+- O tempo de atualização é semelhante entre todas as linguagens (mediana de 17 dias)
 
 ![Métricas por Linguagem Individual](../graficos/rq07_metricas_por_linguagem.png)
 
-#### Explicação de Dados Aparentemente Estranhos:
-
-**Por que outras linguagens têm 0 releases (mediana)?**
-- 139 de 245 repositórios (57%) das outras linguagens não fazem releases formais
-- Isso é **normal** - muitos projetos não usam o sistema de releases do GitHub
-- A média é 45.7 releases, mostrando que alguns projetos fazem muitos releases
-- Projetos em linguagens populares tendem a ter práticas de desenvolvimento mais estruturadas
-
-**Por que todos têm ~13 dias de atualização?**
-- Os dados foram coletados em agosto/2025
-- Todos os repositórios populares foram atualizados entre 9-11 de agosto
-- Hoje (25 de agosto) - última atualização = ~13-15 dias
-- Isso demonstra que **repositórios populares são extremamente ativos**
-- Não há diferença entre linguagens porque todos mantêm alta atividade
+**Interpretação:** Linguagens mais populares efetivamente recebem mais contribuições externas e lançam mais releases, confirmando nossa hipótese. O tempo de atualização é consistente entre todas as linguagens, mostrando alta atividade em projetos populares independentemente da linguagem.
 
 ---
 
@@ -277,7 +268,7 @@ Para cada repositório, coletamos:
 **Confirmadas:**
 - **RQ01:** Sistemas populares são maduros (8.4 anos mediana)
 - **RQ02:** Recebem muita contribuição externa (682 PRs mediana)
-- **RQ04:** São atualizados frequentemente (13 dias)
+- **RQ04:** São atualizados frequentemente (17 dias)
 - **RQ05:** Dominadas por linguagens populares (Python, TypeScript, JavaScript)
 - **RQ06:** Alta taxa de resolução de issues (86.5%)
 - **RQ07:** Linguagens populares têm métricas superiores
@@ -289,7 +280,7 @@ Para cada repositório, coletamos:
 
 1. **Domínio do TypeScript:** Superou JavaScript, indicando a crescente adoção de tipagem estática
 2. **Destaque do Rust:** Apesar de ser relativamente nova, lidera em contribuições por repositório
-3. **Uniformidade na atualização:** Todas as linguagens mantêm ritmo similar de atualização
+3. **Uniformidade na atualização:** Todas as linguagens mantêm ritmo similar de atualização (mediana de 17 dias)
 4. **Variabilidade extrema:** Grande diferença entre medianas e médias em várias métricas
 
 ### 5.3 Implicações
@@ -312,7 +303,7 @@ A análise dos 1.000 repositórios mais populares do GitHub revela padrões clar
 
 - **Maturidade é fundamental:** Projetos populares tipicamente têm 8+ anos
 - **Contribuições importam:** Projetos com mais PRs tendem a ser mais populares
-- **Manutenção ativa é essencial:** Atualizações recentes são características universais
+- **Manutenção ativa é essencial:** Atualizações recentes são características universais (mediana de 17 dias)
 - **Linguagens populares dominam:** Python, TypeScript e JavaScript lideram
 - **Qualidade de manutenção:** Alta taxa de resolução de issues (86.5%)
 - **Vantagem das linguagens estabelecidas:** Recebem mais contribuições e releases
