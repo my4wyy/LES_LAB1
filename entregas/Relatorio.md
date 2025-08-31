@@ -161,7 +161,7 @@ Para cada repositório, coletamos:
 
 **Interpretação:** Projetos populares mantêm um ritmo moderado de releases (mediana de 35), indicando um equilíbrio entre estabilidade e evolução contínua. Novamente, a diferença entre mediana e média sugere variação significativa entre projetos.
 
-![Distribuição do Número de Releases](../graficos/rq03_releases.png)
+![Distribuição do Número de Releases](../graficos/rq03_releases.jpeg)
 
 ---
 
