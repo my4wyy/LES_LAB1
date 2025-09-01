@@ -57,17 +57,21 @@ def gerar_graficos(df):
     plt.savefig(output_path / 'rq02_pull_requests.png', dpi=300, bbox_inches='tight')
     plt.close()
     
-    # RQ03: Releases
+    # RQ03: Releases (Histograma customizado igual à imagem)
     plt.figure(figsize=(10, 6))
-    plt.hist(df['releases'], bins=50, alpha=0.7, color='orange', edgecolor='black')
-    plt.axvline(df['releases'].median(), color='red', linestyle='--', linewidth=2,
-                label=f'Mediana: {df["releases"].median():.0f} releases')
+    counts, bins = np.histogram(df['releases'], bins=50)
+    plt.bar(bins[:-1], counts, width=np.diff(bins), align='edge', color='#F4B942', edgecolor='black', alpha=0.8)
+    mediana = df['releases'].median()
+    plt.axvline(mediana, color='red', linestyle='--', linewidth=2, label=f'Mediana: {int(mediana)} releases')
     plt.xlabel('Número de Releases')
     plt.ylabel('Número de Repositórios')
     plt.title('RQ03: Distribuição do Número de Releases')
-    plt.legend()
+    plt.yscale('log')
+    plt.legend(loc='upper right')
     plt.grid(True, alpha=0.3)
+    plt.tight_layout()
     plt.savefig(output_path / 'rq03_releases.png', dpi=300, bbox_inches='tight')
+    plt.close()
     plt.close()
     
     # RQ04: Frequência de atualização
