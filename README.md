@@ -1,55 +1,51 @@
-# Laboratório de Experimentação de Software
+# LAB02 - Análise de Qualidade em Repositórios Java
 
-## Integrantes:
-- Gabriel Faria
-- João Victor Salim
-- Lucas Garcia
-- Maísa Pires
-- Miguel Vieira
+Este repositório contém os artefatos desenvolvidos para o *Laboratório de Experimentação de Software (LAB02), da disciplina **Laboratório de Experimentação de Software, no curso de **Engenharia de Software* (PUC Minas).  
 
-## Descrição
-Este repositório reúne o desenvolvimento completo do **Laboratório 01 - Características de Repositórios Populares** da disciplina *Laboratório de Experimentação de Software*, ministrada pelo professor João Paulo Carneiro Aramuni no curso de Engenharia de Software.
+O trabalho consiste em *analisar atributos de qualidade em repositórios Java* disponíveis no GitHub, utilizando métricas extraídas pela ferramenta *CK*.  
 
-O objetivo principal é estudar e analisar as características de sistemas open-source populares no GitHub, considerando métricas como maturidade, contribuições externas, frequência de releases, atualização e popularidade da linguagem de programação.
-
-O trabalho será realizado em três etapas (Lab01S01, Lab01S02 e Lab01S03), cobrindo desde a coleta de dados até a análise final com visualização e discussão de resultados.
+O objetivo é correlacionar características de qualidade (como acoplamento, coesão e profundidade de herança) com aspectos do processo de desenvolvimento dos repositórios, tais como:  
+- *Popularidade* (número de estrelas)  
+- *Tamanho* (linhas de código e comentários)  
+- *Atividade* (número de releases)  
+- *Maturidade* (idade do repositório)  
 
 ---
 
-## Questões de Pesquisa (RQs)
-- **RQ01:** Sistemas populares são maduros/antigos?  
-  *Métrica:* idade do repositório (data de criação).
-- **RQ02:** Sistemas populares recebem muita contribuição externa?  
-  *Métrica:* total de pull requests aceitas.
-- **RQ03:** Sistemas populares lançam releases com frequência?  
-  *Métrica:* total de releases.
-- **RQ04:** Sistemas populares são atualizados com frequência?  
-  *Métrica:* tempo até a última atualização.
-- **RQ05:** Sistemas populares são escritos nas linguagens mais populares?  
-  *Métrica:* linguagem primária do repositório.
-- **RQ06:** Sistemas populares possuem um alto percentual de issues fechadas?  
-  *Métrica:* razão entre issues fechadas e total de issues.
-- **RQ07 (Bônus):** Sistemas escritos em linguagens mais populares recebem mais contribuição externa, lançam mais releases e são atualizados com mais frequência?  
+## Questões de Pesquisa
+
+As *questões de pesquisa (RQs)* abordadas neste trabalho foram:  
+
+1. Qual a relação entre a popularidade e a qualidade dos repositórios?  
+2. Qual a relação entre a maturidade e a qualidade dos repositórios?  
+3. Qual a relação entre a atividade e a qualidade dos repositórios?  
+4. Qual a relação entre o tamanho e a qualidade dos repositórios?  
 
 ---
 
-## Etapas do Trabalho
+## Estrutura do Repositório
 
-### **Lab01S01 - Coleta Inicial de 100 Repositórios**
-- Implementação de uma query GraphQL para coletar dados de 100 repositórios mais populares do GitHub.
-- Obtenção de todas as métricas necessárias para as RQs.
-- Armazenamento dos dados coletados em formato `.json`.
-- Verificação do limite de requisições (`rate limit`) antes da coleta.
+bash
+├── data/        # Dados coletados (CSVs gerados pela ferramenta CK e APIs do GitHub)
+├── results/     # Resultados das análises e gráficos gerados
+├── scripts/     # Scripts utilizados para automação, coleta e análise
+├── Relatorio.md # Relatório final com metodologia, resultados e discussão
+├── Slide.pdf    # Apresentação utilizada na entrega
+└── README.md    # Este arquivo
 
-### **Lab01S02 - Paginação e Coleta de 1000 Repositórios**
-- Implementação de paginação para coletar 1000 repositórios.
-- Armazenamento dos dados em formato `.csv`.
-- Elaboração das hipóteses informais iniciais para cada RQ.
+---
 
-### **Lab01S03 - Análise e Relatório Final**
-- Análise estatística dos dados coletados.
-- Visualização dos resultados (gráficos e tabelas).
-- Discussão e comparação com as hipóteses informais.
-- Análise adicional da RQ07 (bônus) separando resultados por linguagem.
+## Requisitos
 
+- python 3.10+  
+- java 8+  ]
+- maven  
+- token do GitHub no arquivo secrets/.env  
+---
 
+## Passos
+
+1. Exportar variáveis do .env:  
+
+   ```bash
+   export $(cat secrets/.env | xargs)
